@@ -148,26 +148,26 @@ export default function Home() {
                   </motion.div>
                 </div>
 
-                {/* All 4 teddies as small thumbnails */}
-                <div className="flex justify-around items-end gap-2">
+                {/* All 4 teddies as small thumbnails — grid so they never overflow */}
+                <div className="grid grid-cols-4 gap-2">
                   {TEDDIES.map((teddy) => (
                     <motion.button
                       key={teddy.id}
                       onClick={() => setSelectedTeddy(teddy.id)}
                       whileHover={{ scale: 1.06 }}
                       whileTap={{ scale: 0.94 }}
-                      className={`relative rounded-xl p-1 transition-all ${
+                      className={`relative rounded-xl p-1 transition-all flex justify-center ${
                         selectedTeddy === teddy.id
                           ? "ring-2 ring-gray-400 bg-gray-50"
                           : ""
                       }`}
                     >
-                      <div className="relative w-20 h-20">
+                      <div className="relative w-full" style={{ paddingBottom: "100%" }}>
                         <Image
                           src={teddy.imageSrc}
                           alt={teddy.name}
                           fill
-                          sizes="80px"
+                          sizes="(max-width: 640px) 18vw, 80px"
                           className="object-contain"
                         />
                       </div>

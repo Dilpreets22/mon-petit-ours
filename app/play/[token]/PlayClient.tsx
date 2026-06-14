@@ -293,13 +293,13 @@ export function PlayClient({ letter }: PlayClientProps) {
       {/* Letter Reveal Modal */}
       <AnimatePresence>
         {showModal && wonTeddy && (
-          <div className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 gap-4">
+          <div className="fixed inset-0 z-50 flex flex-col items-center justify-start sm:justify-center p-3 sm:p-4 gap-3 sm:gap-4 overflow-y-auto">
             {/* Lighter frosted backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0"
+              className="fixed inset-0 -z-10"
               style={{
                 backdropFilter: "blur(12px) saturate(140%)",
                 WebkitBackdropFilter: "blur(12px) saturate(140%)",
@@ -313,7 +313,7 @@ export function PlayClient({ letter }: PlayClientProps) {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 30 }}
               transition={{ type: "spring", damping: 24, stiffness: 300 }}
-              className="relative mx-auto w-full max-w-2xl rounded-3xl p-8 shadow-2xl overflow-hidden"
+              className="relative w-full max-w-2xl rounded-3xl p-5 sm:p-8 shadow-2xl overflow-hidden flex-shrink-0"
               style={{
                 background: "rgba(255, 255, 255, 0.68)",
                 backdropFilter: "blur(40px) saturate(180%)",
@@ -329,14 +329,14 @@ export function PlayClient({ letter }: PlayClientProps) {
               />
 
               {/* Title */}
-              <h2 className="font-serif text-3xl md:text-4xl font-normal text-gray-900 text-center mb-6">
+              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-gray-900 text-center mb-4 sm:mb-6">
                 You found it ❤️
               </h2>
 
-              {/* Content row: Teddy + Paper note postcard */}
-              <div className="flex flex-col md:flex-row items-center gap-6">
+              {/* Content: Teddy on top, paper below on mobile */}
+              <div className="flex flex-col items-center gap-4">
                 {/* Teddy image */}
-                <div className="relative w-44 h-44 flex-shrink-0">
+                <div className="relative w-36 h-36 sm:w-44 sm:h-44 flex-shrink-0">
                   <Image
                     src={wonTeddy.imageSrc}
                     alt={wonTeddy.name}
@@ -346,10 +346,13 @@ export function PlayClient({ letter }: PlayClientProps) {
                   />
                 </div>
 
-                {/* Paper note postcard with actual image as background */}
+                {/* Paper note — explicit height so it always shows */}
                 <div
-                  className="flex-1 rounded-2xl overflow-hidden relative"
-                  style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.10)", minHeight: "220px" }}
+                  className="w-full rounded-2xl overflow-hidden relative"
+                  style={{
+                    boxShadow: "0 4px 20px rgba(0,0,0,0.10)",
+                    height: "clamp(200px, 55vw, 320px)",
+                  }}
                 >
                   {/* Background image */}
                   <Image
@@ -359,15 +362,15 @@ export function PlayClient({ letter }: PlayClientProps) {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
                   />
-                  {/* Letter text — centered on the paper */}
+                  {/* Letter text — centered on the cream paper area */}
                   <div
-                    className="absolute inset-0 z-10 flex items-start mt-[-8%]"
-                    style={{ padding: "10% 23% 18% 18%" }}
+                    className="absolute inset-0 z-10 flex items-center justify-center overflow-y-auto"
+                    style={{ padding: "8% 22% 15% 15%" }}
                   >
                     <p
-                      className="font-serif text-sm text-gray-800 whitespace-pre-wrap"
+                      className="font-serif text-xs sm:text-sm text-gray-800 whitespace-pre-wrap text-center"
                       style={{
-                        lineHeight: "1.9",
+                        lineHeight: "1.8",
                         letterSpacing: "0.01em",
                       }}
                     >
@@ -378,14 +381,14 @@ export function PlayClient({ letter }: PlayClientProps) {
               </div>
             </motion.div>
 
-            {/* Create Yours button — outside the modal, below it */}
+            {/* Create Yours button */}
             <motion.a
               href="/"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
               transition={{ delay: 0.2 }}
-              className="relative z-10 w-full max-w-2xl text-white font-serif text-lg text-center py-4 rounded-2xl transition-all active:scale-95 block"
+              className="relative z-10 w-full max-w-2xl text-white font-serif text-lg text-center py-4 rounded-2xl transition-all active:scale-95 block flex-shrink-0"
               style={{
                 background: "rgba(0,0,0,0.88)",
                 border: "1px solid rgba(255,255,255,0.12)",
